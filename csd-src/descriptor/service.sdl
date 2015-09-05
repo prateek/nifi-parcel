@@ -1,0 +1,53 @@
+{
+  "name" : "NIFI",
+  "label" : "NiFi",
+  "description" : "NiFi service",
+  "version" : 1,
+  "runAs" : {
+    "user" : "root",
+    "group" : "root"
+   },
+  "maxInstances" : 1,
+  "icon" : "images/icon.png",
+  "compatibility" : {
+    "generation" : 1,
+    "cdhVersion" : {
+      "min" : 5,
+      "max" : 5
+    }
+  },
+  "parcel" : {
+    "requiredTags" : ["cdh"],
+    "optionalTags" : [ "nifi-plugin" ]
+  },
+  "serviceDependencies" : [
+    {
+      "name" : "HDFS",
+      "required" : "true"
+    }
+  ],
+  "stopRunner" : {
+    "runner" : {
+      "program" : "scripts/control.sh",
+      "args" : ["stop"]
+    },
+    "timeout" : 60000,
+    "masterRole": "NIFI_NODE"
+  },
+  "rolesWithExternalLinks" : ["NIFI_NODE"],
+  "roles" : [{
+    "name" : "NIFI_NODE",
+    "label" : "NiFi Node",
+    "pluralLabel" : "NiFi Nodes",
+    "jvmBased" : true,
+    "startRunner" : {
+      "program" : "scripts/control.sh",
+      "args" : [ "start" ]
+     },
+     "externalLink" : {
+       "name" : "nifi_web_ui",
+       "label" : "NiFi Node Web UI",
+       "url" : "http://${host}:8080"
+     }
+  }]
+}

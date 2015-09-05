@@ -1,0 +1,34 @@
+{
+  "schema_version":     1,
+  "name":               "NIFI",
+  "version":            "<VERSION-FULL>",
+  "setActiveSymlink":   true,
+
+  "depends": "CDH (>= 5.0), CDH (<< 6.0)",
+  "provides": ["nifi"],
+  "scripts": {
+    "defines": "nifi_env.sh"
+  },
+
+  "packages": [{
+    "name": "nifi",
+    "version": "<VERSION-FULL>"
+  }],
+
+  "components": [{
+    "name":    "nifi",
+    "version": "<VERSION-SHORT>",
+    "pkg_version": "<VERSION-SHORT>"
+  }],
+
+  "users": {
+    "nifi": {
+      "longname"    : "NiFi",
+      "home"        : "/var/lib/nifi",
+      "shell"       : "/bin/bash",
+      "extra_groups": []
+    }
+  },
+
+  "groups": []
+}
